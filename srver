@@ -1,0 +1,46 @@
+<?php
+
+include 'db/config.php';
+
+if (isset($_POST['reg_user'])) {
+
+    $Company_Name=$_POST['Company_Name'];
+    $Company_Ph_No=$_POST['Company_Ph_No'];
+    $Address=$_POST['Address'];
+    $Contact_Person_Name=$_POST['Contact_Person_Name'];
+    $Service_Provided=$_POST['Service_Provided'];
+    $Tech_Co_Pe_Name=$_POST['Tech_Co_Pe_Name'];
+    $Tech_Co_Pe_Email=$_POST['Tech_Co_Pe_Email'];
+    $Tech_Co_Pe_No=$_POST['Tech_Co_Pe_No'];
+    $HR_Name=$_POST['HR_Name'];
+    $HR_Email=$_POST['HR_Email'];
+    $HR_No=$_POST['HR_No'];
+    $password=$_POST['password'];
+    
+    $user_check_query = "select Company_Name from server where Company_Name='".$Company_Name."'";
+    
+    $result  = mysqli_query($con,$user_check_query);
+
+    if (mysqli_num_rows($result)>0) {
+      echo "<script> alert('Company_Name already exists.');
+            </script>";
+            header('location: register.php');
+    }  
+    else {
+    $password = md5($password);//encrypt the password before saving in the database
+
+    $sql = "insert into server values ('', '$Company_Name', $Company_Ph_No, '$Address', '$Contact_Person_Name', '$Service_Provided', '$Tech_Co_Pe_Name', '$Tech_Co_Pe_Email', $Tech_Co_Pe_No, '$HR_Name', '$HR_Email', $HR_No, '$password')";
+
+
+    if(mysqli_query($con, $sql)){
+      $_SESSION['Company_Name'] = $Company_Name;
+    $_SESSION['success'] = "You are now logged in";
+    header('location: index.php');
+    }
+    else {
+    echo "Try again.";
+    }
+    
+  }
+}
+?>
