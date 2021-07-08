@@ -1,0 +1,15 @@
+<?php
+   
+   $db=new mysqli('localhost','root','','demo');
+   if($db->connect_errno){
+   echo $db->connect_error;
+   die('sorry');   
+   }
+
+   $id=isset($_GET['id'])?$id=$_GET['id']:" ";
+   if(isset($id)){
+   	$sql="UPDATE s_info SET id=$id";
+   	$result=$db->query($sql);
+   }
+   	header('location:index1.php');
+?>
