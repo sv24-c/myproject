@@ -1,0 +1,9 @@
+<?php
+
+$Hostname="localhost";
+$Username="root";
+$Password="";
+$db="";
+
+$con = mysqli_connect($Hostname,$Username,$Password,$db);
+?>
